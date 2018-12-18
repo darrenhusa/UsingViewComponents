@@ -41,34 +41,36 @@ namespace UsingViewComponents.Components
         //}
 
         // from page 709
-        public IViewComponentResult Invoke()
-        {
-            string target = RouteData.Values["id"] as string;
-            var cities = repository.Cities
-                .Where(city => target == null ||
-                    string.Compare(city.Country, target, true) == 0);
+        //public IViewComponentResult Invoke()
+        //{
+        //    string target = RouteData.Values["id"] as string;
+        //    var cities = repository.Cities
+        //        .Where(city => target == null ||
+        //            string.Compare(city.Country, target, true) == 0);
 
-            return View(new CityViewModel
+        //    return View(new CityViewModel
+        //    {
+        //        Cities = cities.Count(),
+        //        Population = cities.Sum(c => c.Population)
+        //    });
+        //}
+
+        // from page 711
+        public IViewComponentResult Invoke(bool showList)
+        {
+            if (showList)
             {
-                Cities = cities.Count(),
-                Population = cities.Sum(c => c.Population)
-            });
+                return View("CityList", repository.Cities);
+            }
+            else
+            {
+                return View(new CityViewModel
+                {
+                    Cities = repository.Cities.Count(),
+                    Population = repository.Cities.Sum(c => c.Population)
+                });
+            }
         }
 
-        //public IViewComponentResult Invoke(bool showList)
-        //{
-        //    if (showList)
-        //    {
-        //        return View("CityList", repository.Cities);
-        //    }
-        //    else
-        //    {
-        //        return View(new CityViewModel
-        //        {
-        //            Cities = repository.Cities.Count(),
-        //            Population = repository.Cities.Sum(c => c.Population)
-        //        });
-        //    }
-        //}
     }
 }
