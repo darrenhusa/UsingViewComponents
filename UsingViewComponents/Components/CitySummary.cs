@@ -35,9 +35,24 @@ namespace UsingViewComponents.Components
         //}
 
         // from page 706
+        //public IViewComponentResult Invoke()
+        //{
+        //    return Content("This is a <h3><i>string</i></h3>");
+        //}
+
+        // from page 709
         public IViewComponentResult Invoke()
         {
-            return Content("This is a <h3><i>string</i></h3>");
+            string target = RouteData.Values["id"] as string;
+            var cities = repository.Cities
+                .Where(city => target == null ||
+                    string.Compare(city.Country, target, true) == 0);
+
+            return View(new CityViewModel
+            {
+                Cities = cities.Count(),
+                Population = cities.Sum(c => c.Population)
+            });
         }
 
         //public IViewComponentResult Invoke(bool showList)
