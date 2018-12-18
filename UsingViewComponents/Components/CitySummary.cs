@@ -16,26 +16,36 @@ namespace UsingViewComponents.Components
             repository = repo;
         }
 
-        public string Invoke()
+        //public string Invoke()
+        //{
+        //    return $"{repository.Cities.Count()} cities, "
+        //        + $"{repository.Cities.Sum(c => c.Population)} people";
+        //}
+
+        public IViewComponentResult Invoke()
         {
-            return $"{repository.Cities.Count()} cities, "
-                + $"{repository.Cities.Sum(c => c.Population)} people";
+            return View(new CityViewModel
+            {
+                Cities = repository.Cities.Count(),
+                Population = repository.Cities.Sum(c => c.Population)
+            });
+            
         }
 
-            //public IViewComponentResult Invoke(bool showList)
-            //{
-            //    if (showList)
-            //    {
-            //        return View("CityList", repository.Cities);
-            //    }
-            //    else
-            //    {
-            //        return View(new CityViewModel
-            //        {
-            //            Cities = repository.Cities.Count(),
-            //            Population = repository.Cities.Sum(c => c.Population)
-            //        });
-            //    }
-            //}
-        }
+        //public IViewComponentResult Invoke(bool showList)
+        //{
+        //    if (showList)
+        //    {
+        //        return View("CityList", repository.Cities);
+        //    }
+        //    else
+        //    {
+        //        return View(new CityViewModel
+        //        {
+        //            Cities = repository.Cities.Count(),
+        //            Population = repository.Cities.Sum(c => c.Population)
+        //        });
+        //    }
+        //}
+    }
 }
