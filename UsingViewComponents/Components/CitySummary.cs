@@ -16,20 +16,28 @@ namespace UsingViewComponents.Components
             repository = repo;
         }
 
+        // from page 699
         //public string Invoke()
         //{
         //    return $"{repository.Cities.Count()} cities, "
         //        + $"{repository.Cities.Sum(c => c.Population)} people";
         //}
 
+        // from page 704
+        //public IViewComponentResult Invoke()
+        //{
+        //    return View(new CityViewModel
+        //    {
+        //        Cities = repository.Cities.Count(),
+        //        Population = repository.Cities.Sum(c => c.Population)
+        //    });
+
+        //}
+
+        // from page 706
         public IViewComponentResult Invoke()
         {
-            return View(new CityViewModel
-            {
-                Cities = repository.Cities.Count(),
-                Population = repository.Cities.Sum(c => c.Population)
-            });
-            
+            return Content("This is a <h3><i>string</i></h3>");
         }
 
         //public IViewComponentResult Invoke(bool showList)
